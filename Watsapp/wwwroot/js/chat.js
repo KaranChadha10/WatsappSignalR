@@ -6,30 +6,29 @@
     }
 }
 
-
-//userName is declared in Razor page
+// userName is declared in razor page.
 const username = userName;
 const textInput = document.getElementById('messageText');
+const whenInput = document.getElementById('when');
 const chat = document.getElementById('chat');
-const messageQueue =[];
+const messagesQueue = [];
 
 document.getElementById('submitButton').addEventListener('click', () => {
-
     var currentdate = new Date();
     when.innerHTML =
         (currentdate.getMonth() + 1) + "/"
-    + currentdate.getDate() + "/"
-    + currentdate.getFullYear() + ""
-    + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second:'numeric' })
+        + currentdate.getDate() + "/"
+        + currentdate.getFullYear() + " "
+        + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
 });
 
 function clearInputField() {
-    messageQueue.push(textInput.value);
+    messagesQueue.push(textInput.value);
     textInput.value = "";
 }
 
 function sendMessage() {
-    let text = messageQueue.shift() || "";
+    let text = messagesQueue.shift() || "";
     if (text.trim() === "") return;
 
     let when = new Date();
@@ -41,10 +40,10 @@ function addMessageToChat(message) {
     let isCurrentUserMessage = message.userName === username;
 
     let container = document.createElement('div');
-    container.className = isCurrentUserMessage ? "container Darker" : "container";
+    container.className = isCurrentUserMessage ? "container darker" : "container";
 
     let sender = document.createElement('p');
-    sender.className = 'sender';
+    sender.className = "sender";
     sender.innerHTML = message.userName;
     let text = document.createElement('p');
     text.innerHTML = message.text;
@@ -54,16 +53,12 @@ function addMessageToChat(message) {
     var currentdate = new Date();
     when.innerHTML =
         (currentdate.getMonth() + 1) + "/"
-    + currentdate.getDate() + "/"
-    + currentdate.getFullYear() + " "
-    + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric' })
-
+        + currentdate.getDate() + "/"
+        + currentdate.getFullYear() + " "
+        + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
 
     container.appendChild(sender);
     container.appendChild(text);
     container.appendChild(when);
     chat.appendChild(container);
 }
-
-
-

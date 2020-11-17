@@ -60,11 +60,16 @@ namespace Watsapp
 
             app.UseAuthentication();
             app.UseAuthorization();
+            //app.UseSignalR(route=>
+            //{
+            //    route.MapHub<ChatHub>("/Home/Index");
+            //});
            
-            
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/Home/Index");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
